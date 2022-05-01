@@ -10,7 +10,7 @@ const {
 //Set up Get all and Post at /api/users
 router.route("/").get(getAllUser).post(createUser);
 
-//Set up Get one, PUT, and DELETE at /api/pizzas/:id
+//Set up Get one, PUT, and DELETE at /api/users/:id
 router.route("/:id").get(getUserById).put(updateUser).delete(deleteUser);
 
 module.exports = router;
