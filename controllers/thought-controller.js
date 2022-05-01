@@ -33,14 +33,14 @@ const thoughtController = {
       },
 
     //post(create) a new thought
-    userThought({ body }, res) {
+    createThought({ body }, res) {
         Thought.create(body)
           .then((dbThoughtData) => res.json(dbThoughtData))
           .catch((err) => res.status(400).json(err));
       },
 
     //update thought by id
-    updatethought({ params, body }, res) {
+    updateThought({ params, body }, res) {
         User.findOneAndUpdate({ _id: params.id }, body, {
           new: true,
           runValidators: true,
