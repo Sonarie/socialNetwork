@@ -14,24 +14,37 @@ const UserSchema = new Schema (
             match: /.+\@.+\..+/,
             unique: true,
         },
-        thoughts: {
-
+        thoughts: [
+          {
+            type: Schema.Types.ObjectId,
+            ref: "Thought",
+          },
+        ],
+        friends: [
+          {
+            type: Schema.Types.ObjectId,
+            ref: "Friend",
+          },
+        ],
+    },
+    {
+        toJSON: {
+          virtuals: true,
+          getters: true,
         },
-        friends: {
-
-        },
+        id: false,
     }
 );
 
 
-FriendSchema.virtual("friendsCount").get(function () {
+UserSchema.virtual("friendCount").get(function () {
     return this.friends.reduce(
-      (total, friends) => total + user.friends.length + 1,
+      (total, friends) => total + friends.user.length + 1,
       0
     );
-  });
+});
   
-  const friend = model("Friend", UserSchema);
+const User = model("User", UserSchema);
   
-  module.exports = Pizza;
+module.exports = User;
   

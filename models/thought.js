@@ -21,8 +21,14 @@ const ThoughtSchema = new Schema({
     type: String,
     required: true,
   },
-  reactions: [reactionSchema],
-});
+  reactions: [ReactionSchema],
+},
+{
+  toJSON: {
+    getters: true,
+  },
+}
+);
 
 const ReactionSchema = new Schema({
   reactionId: {
@@ -47,12 +53,19 @@ const ReactionSchema = new Schema({
     default: Date.now,
     get: (createdAtVal) => dateFormat(createdAtVal),
   },
+},
+{
+  toJSON: {
+    virtuals: true,
+    getters: true,
+  },
+  id: false,
 });
 
-ReactionSchema.virtual("reactionsCount").get(function () {
+ThoughtSchema.virtual("reactionCount").get(function () {
     return this.replies.length;
-  });
+});
   
-  const Reaction = model("Reaction", ReactionSchema);
+const Thought = model("Thought", ThoughtSchema);
   
-  module.exports = Reaction;
+module.exports = Thought;
