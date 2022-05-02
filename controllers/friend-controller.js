@@ -1,9 +1,9 @@
-const { Friend, User } = require("../models");
+const { User } = require("../models");
 
 const friendController = {
   //post(create) a new friend to users friend list
   addFriend({ params, id }, res) {
-    Friend.create(id)
+    friends.create(id)
       .then(({ _id }) => {
         return User.findOneAndUpdate(
           { _id: params.friendId },
@@ -23,7 +23,7 @@ const friendController = {
 
   //delete friend from users friend list
   removeFriend({ params }, res) {
-    Friend.findOneAndDelete({ _id: params.friendId })
+    friends.findOneAndDelete({ _id: params.friendId })
       .then((deletedFriend) => {
         if (!deletedFriend) {
           return res.status(404).json({ message: "No Friend with this id!" });
