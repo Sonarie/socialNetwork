@@ -1,3 +1,6 @@
+const { Schema, Types } = require("mongoose");
+const dateFormat = require("../utils/dateFormat");
+
 const ReactionSchema = new Schema(
   {
     reactionId: {
@@ -7,11 +10,7 @@ const ReactionSchema = new Schema(
     reactionBody: {
       type: String,
       required: true,
-      validate: {
-        validator: "isLength",
-        arguments: [280],
-        message: "Text should be a minimum of 280 characters only",
-      },
+      maxlength: 280,
     },
     username: {
       type: String,
@@ -32,6 +31,4 @@ const ReactionSchema = new Schema(
   }
 );
 
-const Reaction = model("Reaction", ReactionSchema);
-
-module.exports = Reaction;
+module.exports = ReactionSchema;

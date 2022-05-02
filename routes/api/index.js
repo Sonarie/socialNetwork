@@ -8,8 +8,8 @@ router.use("/thoughts", thoughtRoutes);
 
 router.use("/users", userRoutes);
 
-router.use("./friends", friendRoutes);
+router.use("/friends", friendRoutes);
 
-router.use("./reactions", reactionRoutes);
+router.use("/reactions", reactionRoutes);
 
 module.exports = router;

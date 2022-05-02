@@ -1,6 +1,5 @@
-const { Schema, model, Types } = require("mongoose");
-const validate = require("mongoose-validator");
-const dateFormat = require("../public/utils/dateFormat");
+const { Schema, model } = require("mongoose");
+const dateFormat = require("../utils/dateFormat");
 const ReactionSchema = require("./reaction");
 
 const ThoughtSchema = new Schema(
@@ -8,11 +7,8 @@ const ThoughtSchema = new Schema(
     thoughtText: {
       type: String,
       required: true,
-      validate: {
-        validator: "isLength",
-        arguments: [1, 280],
-        message: "Text should be between 1 and 280 characters only",
-      },
+      minlength: 1,
+      maxlength: 280,
     },
     createdAt: {
       type: Date,
@@ -33,7 +29,7 @@ const ThoughtSchema = new Schema(
 );
 
 ThoughtSchema.virtual("reactionCount").get(function () {
-  return this.replies.length;
+  return this.reactions.length;
 });
 
 const Thought = model("Thought", ThoughtSchema);
